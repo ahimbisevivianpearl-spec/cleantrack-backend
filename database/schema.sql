@@ -173,4 +173,3 @@ ALTER TABLE users
   ADD COLUMN email_notifications BOOLEAN DEFAULT TRUE,
   ADD COLUMN sms_notifications BOOLEAN DEFAULT FALSE;
 
-
