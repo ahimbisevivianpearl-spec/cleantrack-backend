@@ -1,0 +1,37 @@
+This fork of CleanTrack Uganda focuses on backend development.
+New features were implemented in the backend only, tested via Postman and database migrations.
+The frontend was not modified.
+
+# Prerequisites
+Node.js v18+ and npm v9+
+
+MySQL or MariaDB (local instance)
+
+Git (for cloning and version control)
+
+Postman or Insomnia (for API testing)
+# New Features Implemented
+1. # Recurring Pickup Schedules
+Endpoint: POST /api/schedules
+
+Database: pickup_schedules table
+
+Function: Allows customers to set daily/weekly/monthly pickups.
+
+2. # Pickup History & Receipts
+Endpoint: GET /api/pickups/history/:userId
+
+Database: pickups table extended with completed_at and receipt_url
+
+Function: Tracks completed pickups and provides downloadable receipts.
+
+3. # Notifications (Email/SMS)
+Endpoint: POST /api/users/notifications
+
+Database: users table extended with notification preferences
+Function: Sends alerts via email (Nodemailer) and SMS (Twilio).
+
+# Acknowledgements
+Original repositories by Musasizi (GitHub).
+
+External libraries: Nodemailer, Twilio.

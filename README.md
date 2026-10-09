@@ -171,3 +171,4 @@ The React frontend uses Axios service files. After login, the JWT is stored in `
 ## Repository Notes
 
 This folder is its own Git repository. `node_modules/`, `.env`, generated logs, and uploaded photos are ignored. The empty upload folders are kept with `.gitkeep` files so students can see where images are stored.
+
