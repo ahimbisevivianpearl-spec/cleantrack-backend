@@ -9,20 +9,19 @@ const runSqlFile = async (connection, fileName) => {
   await connection.query(sql);
 };
 
-const setupDatabase = async () => {
-  const connection = await mysql.createConnection({
-    host: process.env.DB_HOST || "localhost",
-    user: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD || "",
-    multipleStatements: true
-  });
-
+const connection = await mysql.createConnection({
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "",
+  database: "cleantrackuganda",
+  multipleStatements: true
+});
   await runSqlFile(connection, "schema.sql");
   await runSqlFile(connection, "seed.sql");
   await connection.end();
 
   console.log("CleanTrack Uganda database schema and seed data loaded.");
-};
+
 
 setupDatabase().catch((error) => {
   console.error("Database setup failed:", error.message);
