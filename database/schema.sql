@@ -139,3 +139,38 @@ CREATE TABLE audit_logs (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
+
+use cleantrack_uganda;
+CREATE TABLE pickup_schedules (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  frequency ENUM('daily','weekly','monthly') NOT NULL,
+  day_of_week VARCHAR(20),
+  time TIME NOT NULL,
+  active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+use cleantrack_uganda;
+select * from cleantrack_uganda.users
+;
+-- Migration: Create recurring pickup schedules table
+CREATE TABLE IF NOT EXISTS pickup_schedules (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  frequency ENUM('daily','weekly','monthly') NOT NULL,
+  day_of_week VARCHAR(20),
+  time TIME NOT NULL,
+  active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+-- Migration: Extend pickups table with history and receipts
+ALTER TABLE pickups
+  ADD COLUMN completed_at TIMESTAMP NULL AFTER scheduled_at,
+  ADD COLUMN receipt_url VARCHAR(255) NULL AFTER completed_at;
+-- Migration: Add notification preferences for users
+ALTER TABLE users 
+  ADD COLUMN email_notifications BOOLEAN DEFAULT TRUE,
+  ADD COLUMN sms_notifications BOOLEAN DEFAULT FALSE;
+
+
